@@ -10,7 +10,7 @@ import SecondStep from './stepper/SecondStep';
 import ThirdStep from './stepper/ThirdStep';
 
 
-const steps = ['Name And purpose', 'Budget And Date', 'list of Participants','list of Services'];
+const steps = ['Name And purpose', 'Budget And Date', 'list of Participants', 'list of Services'];
 
 export default function PackageDIalog() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -36,8 +36,8 @@ export default function PackageDIalog() {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+        // find the first step that has been completed
+        steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -63,7 +63,9 @@ export default function PackageDIalog() {
   };
 
   return (
-    <Box sx={{ width: '100%', padding: '38px' }}>
+    <Box sx={{ width: '100%',
+    //  padding: '38px'
+      }}>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
@@ -71,7 +73,7 @@ export default function PackageDIalog() {
               {label}
             </StepButton>
           </Step>
-          
+
         ))}
       </Stepper>
       <div>
@@ -85,22 +87,22 @@ export default function PackageDIalog() {
               <Button onClick={handleReset}>Reset</Button>
             </Box>
           </React.Fragment>
-        ) :(
-            <React.Fragment>
+        ) : (
+          <React.Fragment>
 
-              {  activeStep == 0? 
-               ( 
-                 <FirstStep />
-                  ): activeStep==1 ? (
-<SecondStep />
-                    ): activeStep ==2 ? (
-<ThirdStep/>
-                        ): activeStep ==3 ? (
-                        <div>333</div>
-                    ): (
-                        null
-                    )
-                    }
+            {activeStep == 0 ?
+              (
+                <FirstStep />
+              ) : activeStep == 1 ? (
+                <SecondStep />
+              ) : activeStep == 2 ? (
+                <ThirdStep />
+              ) : activeStep == 3 ? (
+                <div>333</div>
+              ) : (
+                null
+              )
+            }
 
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button

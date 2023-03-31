@@ -89,7 +89,7 @@ export default function ThirdStep() {
   const [variantName, setVariantName] = React.useState([{
     id: 11,
     name: 'Nintendo',
-  },{
+  }, {
     id: 10,
     name: 'Xbox'
   },]);
@@ -109,9 +109,9 @@ export default function ThirdStep() {
   return (
     <Box sx={{ textAlign: "center" }}>
       <Typography sx={{ mt: 2, mb: 1 }}>List of Partticipants </Typography>
-      <Box sx={{display: 'flex'}}>
+      <Box sx={{ display: 'flex' }}>
         {" "}
-        <Button sx={{backgroundColor: 'gray', color: 'white'}}>
+        <Button sx={{ backgroundColor: 'gray', color: 'white', borderRadius: '5px 0 0 5px' }}>
           <SearchIcon />
         </Button>
         <TextField fullWidth label="Search..." id="fullWidth" />
@@ -121,32 +121,10 @@ export default function ThirdStep() {
         purpose of giving the package
       </Typography>
 
-<Box sx={{display: 'flex', justifyContent: 'space-between'}}>
 
-<div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          multiple
-          value={variantName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Tag" />}
-          renderValue={(selected) => selected.map((x) => x.name).join(', ')}
-          MenuProps={MenuProps}
-        >
-          {variants.map((variant) => (
-            <MenuItem key={variant.id} value={variant}>
-              <Checkbox checked={variantName.indexOf(variant) > -1} />
-              <ListItemText primary={variant.name} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
 
-</Box>
+
+
       {/* <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={rows}

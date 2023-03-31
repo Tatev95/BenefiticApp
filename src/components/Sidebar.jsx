@@ -32,27 +32,6 @@ function ResponsiveDrawer(props) {
         aria-label="mailbox folders"
       >
         <div>
-          {/* <List>
-        {[
-          // "Company",
-          // "Branch and Department",
-          "Team",
-          // "Packages",
-          // "Services",
-        ].map((text, index) => (
-          <Link href="/team">
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-          </Link>
-
-))}
-      </List> */}
           <List>
             <Link href="/team">
               <ListItem disablePadding>

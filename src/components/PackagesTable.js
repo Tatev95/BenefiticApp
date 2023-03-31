@@ -109,86 +109,56 @@ function createUser(
 
 const rows = [
   createUser(
-    "Ann",
-    "Smith",
-    "first branch",
-    "first dep",
-    "dev",
-    "ann@gmail.com",
-    777,
-    "12.01.1994"
+    "Pckage1",
+    "John Doe",
+    "B-Day",
+    "5.000 AMD",
+    "10/10/2023",
+    "Participants - 15 ",
+    "Sevices - 12",
+    "Active"
   ),
   createUser(
-    "Joe",
-    "Brown",
-    "sec branch",
-    "sec dep",
-    "pm",
-    "joe@gmail.com",
-    123,
-    "07.04.1999"
+    "Pckage1",
+    "John Doe",
+    "B-Day",
+    "5.000 AMD",
+    "10/10/2023",
+    "Participants - 15 ",
+    "Sevices - 12",
+    "Scheduled"
   ),
   createUser(
-    "AAA",
-    "Brown",
-    "sec branch",
-    "sec dep",
-    "pm",
-    "joe@gmail.com",
-    123,
-    "07.04.1999"
+    "Pckage1",
+    "John Doe",
+    "B-Day",
+    "5.000 AMD",
+    "10/10/2023",
+    "Participants - 15 ",
+    "Sevices - 12",
+    "Draft"
   ),
   createUser(
-    "SSS",
-    "Brown",
-    "sec branch",
-    "sec dep",
-    "pm",
-    "joe@gmail.com",
-    123,
-    "07.04.1999"
+    "Pckage1",
+    "John Doe",
+    "B-Day",
+    "5.000 AMD",
+    "10/10/2023",
+    "Participants - 15 ",
+    "Sevices - 12",
+    "Completed"
   ),
   createUser(
-    "HHH",
-    "Brown",
-    "sec branch",
-    "sec dep",
-    "pm",
-    "joe@gmail.com",
-    123,
-    "07.04.1999"
+    "Pckage1",
+    "John Doe",
+    "B-Day",
+    "5.000 AMD",
+    "10/10/2023",
+    "Participants - 15 ",
+    "Sevices - 12",
+    "Cancelled"
   ),
-  createUser(
-    "vvv",
-    "Brown",
-    "sec branch",
-    "sec dep",
-    "pm",
-    "joe@gmail.com",
-    123,
-    "07.04.1999"
-  ),
-  createUser(
-    "xxx",
-    "Brown",
-    "sec branch",
-    "sec dep",
-    "pm",
-    "joe@gmail.com",
-    123,
-    "07.04.1999"
-  ),
-  createUser(
-    "dacds",
-    "Brown",
-    "sec branch",
-    "sec dep",
-    "pm",
-    "joe@gmail.com",
-    123,
-    "07.04.1999"
-  ),
-  
+
 ];
 
 export default function PackageTable() {
@@ -211,31 +181,31 @@ export default function PackageTable() {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableBody>
-          <TableRow sx={{fontWeight: 'bold'}}>
-          <TableCell component="th" scope="row">
-                First Name
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
-                Last Name
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
-                Branch
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
-                Department
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
-                Position
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
-                Email
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
-                Phone
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
-                Brth day
-              </TableCell>
+          <TableRow sx={{ fontWeight: 'bold' }}>
+            <TableCell component="th" scope="row">
+              Name
+            </TableCell>
+            <TableCell align="left">
+              Admin’s Name
+            </TableCell>
+            <TableCell  align="left">
+              porpose
+            </TableCell>
+            <TableCell  align="left">
+              Budget
+            </TableCell>
+            <TableCell  align="left">
+              date
+            </TableCell>
+            <TableCell  align="left">
+              employees
+            </TableCell>
+            <TableCell  align="left">
+              Partner
+            </TableCell>
+            <TableCell  align="left">
+              Status
+            </TableCell>
           </TableRow>
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -245,25 +215,25 @@ export default function PackageTable() {
               <TableCell component="th" scope="row">
                 {row.first_name}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {row.last_name}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {row.branch}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {row.bepartment}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {row.position}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {row.email}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {row.phone}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell align="left">
                 {row.birth_day}
               </TableCell>
             </TableRow>
