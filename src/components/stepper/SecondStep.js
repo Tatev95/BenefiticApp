@@ -131,6 +131,8 @@ export default function SecondStep() {
               </MenuItem>
             ))}
           </Select>
+          <TextField label="0.00" />
+
         </Box>
         <Typography sx={{ mt: 4.5, mb: 3 }}>Select Date</Typography>
 

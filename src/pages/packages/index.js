@@ -265,7 +265,8 @@ export default function Packages() {
               PaperProps={{
                 sx: {
                   width: '1500px',
-                  height: '1083px'
+                  height: '1083px',
+                  maxWidth: "1106px"
                   
                 }
               }}
