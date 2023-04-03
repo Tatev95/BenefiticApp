@@ -26,16 +26,16 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-import PropTypes from 'prop-types';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
+import PropTypes from "prop-types";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
 import AddUser from "@/components/AddUser";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: '#FAFAFA',
+  backgroundColor: "#FAFAFA",
   color: "gray",
   // "&:hover": {
   //   backgroundColor: alpha(theme.palette.common.white, 0.25),
@@ -75,10 +75,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
+  "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
   },
-  '& .MuiDialogActions-root': {
+  "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
   },
 }));
@@ -94,7 +94,7 @@ function BootstrapDialogTitle(props) {
           aria-label="close"
           onClick={onClose}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
@@ -112,10 +112,11 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-
-export default function Team({
-  // myData
-}) {
+export default function Team(
+  {
+    // myData
+  }
+) {
   const [age, setAge] = React.useState("");
   const [filter, setFilter] = React.useState([]);
 
@@ -140,7 +141,6 @@ export default function Team({
   const handleCloseAdd = () => {
     setOpenAdd(false);
   };
-
 
   // console.log({selectedDate: selectedDate && selectedDate.toLocalTimeString()})
 
@@ -235,7 +235,7 @@ export default function Team({
       departmentId: postData.departmentId,
       positionId: 1,
       // birthDate: 'postData.birthDate',
-      birthDate: '2011-03-29T12:53:32.006Z',
+      birthDate: "2011-03-29T12:53:32.006Z",
     };
     axios
       .post(
@@ -331,9 +331,8 @@ export default function Team({
 
             <Button onClick={handleClickOpenAdd}>
               {" "}
-              <AddBoxIcon postData={postData}/>
+              <AddBoxIcon postData={postData} />
             </Button>
-
 
             <BootstrapDialog
               onClose={handleCloseAdd}
@@ -341,15 +340,19 @@ export default function Team({
               open={openAdd}
               PaperProps={{
                 sx: {
-                  width: '1500px',
-                  height: '1083px',
-                  textAlign: 'center'
-                  
-                }
+                  width: "1106px",
+                  height: "688px",
+                  // textAlign: "center",
+                  maxWidth: "1106px",
+                },
               }}
             >
-              <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseAdd}>
-              Add Members
+              <BootstrapDialogTitle
+                id="customized-dialog-title"
+                onClose={handleCloseAdd}
+                sx={{marginLeft: '30px'}}
+              >
+                Add Members
               </BootstrapDialogTitle>
               <DialogContent>
                 {/* <Typography gutterBottom>
@@ -359,145 +362,171 @@ export default function Team({
                 </Typography> */}
 
                 {/* <AddUser/> */}
-                <FormControl>
-            <TextField 
-              id="outlined-basic"
-              label="First name"
-              variant="outlined"
-              onChange={(event) => {
-                setPostData({
-                  ...postData,
-                  firstName: event.target.value,
-                });
-              }}
-              value={postData.firstName}
-              sx={{
-                marginRight: "20px",
-                marginBottom: "20px",
-              }}
-            /> 
-            <TextField
-              id="outlined-basic"
-              label="Last name"
-              variant="outlined"
-              onChange={(event) => {
-                setPostData({
-                  ...postData,
-                  lastName: event.target.value,
-                });
-              }}
-              value={postData.lastName}
-              sx={{
-                marginRight: "20px",
-                marginBottom: "20px",
-              }}
-            />
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={branchId}
-              label="Branch"
-              onChange={(e) => {
-                // setBranchId(e.target.value);
-                console.log(e.target.value, 'select e.t.v')
-              }}
-            >
-              {filter.map((item) => (
-                <MenuItem key={item.id} value={item.id}>
-                  {item.name}
-                </MenuItem>
-              ))}
-            </Select>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={departmentId}
-              label="DepartmentId"
-              onChange={(event) => {
-                setPostData({
-                  ...postData,
-                  departmentId: event.target.value,
-                });
-                console.log(event.target.value, 'event.target.value')
-              }}
-            // onChange={(e) => {
-            //   setDepartmentId(e.target.value);
-            //   console.log(departmentId, "depid");
-            // }}
-            >
-              {filterDep.map((item) => (
-                <MenuItem key={item.id} value={item.id}>
-                  {item.name}
-                </MenuItem>
-              ))}
-            </Select>
-            <TextField
-              id="outlined-basic"
-              label="Phone"
-              variant="outlined"
-              onChange={(event) => {
-                setPostData({
-                  ...postData,
-                  phoneNumber: event.target.value,
-                });
-              }}
-              value={postData.phoneNumber}
-              sx={{
-                marginRight: "20px",
-                marginBottom: "20px",
-              }}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Position"
-              variant="outlined"
-              onChange={(event) => {
-                setPostData({
-                  ...postData,
-                  position: event.target.value,
-                });
-              }}
-              value={postData.position}
-              sx={{
-                marginRight: "20px",
-                marginBottom: "20px",
-              }}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Mail"
-              variant="outlined"
-              onChange={(event) => {
-                setPostData({ ...postData, email: event.target.value });
-              }}
-              value={postData.email}
-              sx={{
-                marginRight: "20px",
-                marginBottom: "20px",
-              }}
-            />
+                <FormControl sx={{paddingLeft: '34px'}}>
+                  <div  style={{
+                    // display: 'flex',
+                     justifyContent: 'space-around', flexWrap: 'wrap'}}>
+                  <TextField
+                    id="outlined-basic"
+                    label="First name"
+                    variant="outlined"
+                    onChange={(event) => {
+                      setPostData({
+                        ...postData,
+                        firstName: event.target.value,
+                      });
+                    }}
+                    value={postData.firstName}
+                    sx={{
+                      width: "315px",
+                      height: "56px",
+                      marginRight: '168px', 
+                      marginBottom: '48px'
+                    }}
+                  />
+                    <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={branchId}
+                    label="Branch"
+                    onChange={(e) => {
+                      // setBranchId(e.target.value);
+                      console.log(e.target.value, "select e.t.v");
+                    }}
+                    sx={{
+                      width: '363px',
+                      height: '56px',
+                      marginBottom: '48px'
+                    }}
+                  >
+                    {filter.map((item) => (
+                      <MenuItem key={item.id} value={item.id}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <TextField
+                    id="outlined-basic"
+                    label="Last name"
+                    variant="outlined"
+                    onChange={(event) => {
+                      setPostData({
+                        ...postData,
+                        lastName: event.target.value,
+                      });
+                    }}
+                    value={postData.lastName}
+                    sx={{
+                      width: '315px',
+                      height: '56px', 
+                      marginRight: '168px',
+                      marginBottom: '48px'
 
-      
+                    }}
+                    
+                  />
+                
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={departmentId}
+                    sx={{
+                      width: '363px',
+                      height: '56px',
+                      marginBottom: '48px'
+                    }}
+                    label="DepartmentId"
+                    onChange={(event) => {
+                      setPostData({
+                        ...postData,
+                        departmentId: event.target.value,
+                      });
+                      console.log(event.target.value, "event.target.value");
+                    }}
+                    // onChange={(e) => {
+                    //   setDepartmentId(e.target.value);
+                    //   console.log(departmentId, "depid");
+                    // }}
+                  >
+                    {filterDep.map((item) => (
+                      <MenuItem key={item.id} value={item.id}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <TextField
+                    id="outlined-basic"
+                    label="Phone"
+                    variant="outlined"
+                    onChange={(event) => {
+                      setPostData({
+                        ...postData,
+                        phoneNumber: event.target.value,
+                      });
+                    }}
+                    value={postData.phoneNumber}
+                    sx={{
+                      width: '315px',
+                      height: '56px',
+                      marginBottom: '48px',
+                      marginRight: '168px'
+                    }}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Position"
+                    variant="outlined"
+                    onChange={(event) => {
+                      setPostData({
+                        ...postData,
+                        position: event.target.value,
+                      });
+                    }}
+                    value={postData.position}
+                    sx={{
+                      width: '363px',
+                      height: '56px',
+                      marginBottom: '48px'
+                    }}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Mail"
+                    variant="outlined"
+                    onChange={(event) => {
+                      setPostData({ ...postData, email: event.target.value });
+                    }}
+                    value={postData.email}
+                    sx={{
+                      width: '315px',
+                      height: '56px',
+                      marginBottom: '48px',
+                      marginRight: '168px',
+                    }}
+                  />
 
-            <TextField
-              id="outlined-basic"
-              label="Date"
-              variant="outlined"
-              onChange={(event) => {
-                setPostData({
-                  ...postData,
-                  birthDate: event.target.value,
-                });
-              }}
-              value={postData.birthDate}
-              sx={{
-                marginRight: "20px",
-                marginBottom: "20px",
-              }}
-            /> 
-             </FormControl>
+                  <TextField
+                    id="outlined-basic"
+                    label="Date"
+                    variant="outlined"
+                    onChange={(event) => {
+                      setPostData({
+                        ...postData,
+                        birthDate: event.target.value,
+                      });
+                    }}
+                    value={postData.birthDate}
+                    sx={{
+                      width: '363px',
+                      height: '56px',
+                      marginBottom: '48px'
+                    }}
+                  />
+
+                  </div>
+                 
+                </FormControl>
                 {/* <AddUser/> */}
-
               </DialogContent>
               <DialogActions>
                 <Button autoFocus onClick={handleCloseAdd}>
@@ -505,14 +534,14 @@ export default function Team({
                 </Button>
               </DialogActions>
             </BootstrapDialog>
-
-         
-
           </div>
         </div>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ bgcolor: "#FFFFFF", boxShadow: "none" }}>
+        <AppBar
+          position="static"
+          sx={{ bgcolor: "#FFFFFF", boxShadow: "none" }}
+        >
           <Toolbar>
             <div
               style={{
@@ -626,7 +655,6 @@ export default function Team({
     </Layout>
   );
 }
-
 
 // export async function getStaticProps() {
 //   const response = await fetch("https://jsonplaceholder.typicode.com/users");
