@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Layout from "@/components/Layout";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -191,13 +192,16 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
 
 
 export default function Packages() {
-  const [age, setAge] = React.useState("");
-  const [filter, setFilter] = React.useState("");
+  const [age, setAge] = useState("");
+  const [filter, setFilter] = useState("");
   // const [open, setOpen] = React.useState(false);
   // const [filteredList, setFilteredList] = React.useState(rows);
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+
+
 
   // const handleClickOpen = () => {
   //   setOpen(true);
@@ -240,8 +244,6 @@ export default function Packages() {
   };
 
   function handleInputChange(event) {
-    // alert('hi')
-    // console.log(event.target.value);
     console.log(event.target.value);
   }
   
@@ -275,9 +277,7 @@ export default function Packages() {
                 Create Benefit Package
               </BootstrapDialogTitle>
               <DialogContent
-              // sx={{width: "1500px"}}
-              //  dividers
-              >
+                    >
 
                 <PackageDialog />
 
@@ -288,24 +288,6 @@ export default function Packages() {
                 </Button>
               </DialogActions>
             </BootstrapDialog>
-
-            {/* <Dialog */}
-
-            {/* sx={{ width: '1500px', margin: '0 auto' }} */}
-            {/* open={open} */}
-            {/* onClose={handleClose} */}
-            {/* aria-labelledby="alert-dialog-title" */}
-            {/* aria-describedby="alert-dialog-description" */}
-            {/* > */}
-            {/* <DialogTitle id="alert-dialog-title"> */}
-            {/* Create Benefit Package */}
-            {/* </DialogTitle> */}
-
-            {/* <PackageDialog /> */}
-            {/* </Dialog> */}
-
-
-
           </div>
         </div>
       </Box>

@@ -88,28 +88,6 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createUser(
-  first_name,
-  last_name,
-  branch,
-  bepartment,
-  position,
-  email,
-  phone,
-  birth_day
-) {
-  return {
-    first_name,
-    last_name,
-    branch,
-    bepartment,
-    position,
-    email,
-    phone,
-    birth_day,
-  };
-}
-
 
 export default function UsersTable({data, filter, filterDep, filterPos}) {
   const [page, setPage] = useState(0);
@@ -137,25 +115,25 @@ export default function UsersTable({data, filter, filterDep, filterPos}) {
           <TableCell component="th" scope="row">
                 First Name
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 Last Name
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 Branch
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 Department
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 Position
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 Email
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell align="left">
                 Phone
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 Brth day
               </TableCell>
           </TableRow>
@@ -167,25 +145,25 @@ export default function UsersTable({data, filter, filterDep, filterPos}) {
               <TableCell component="th" scope="row">
                 {datum.firstName}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {datum.lastName}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {datum.branch}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {datum.department}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {datum.position}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {datum.email}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell  align="left">
                 {datum.phone}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="left">
+              <TableCell align="left">
                 {datum.birthDate}
               </TableCell>
             </TableRow>

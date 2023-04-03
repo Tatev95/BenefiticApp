@@ -87,16 +87,16 @@ export default function SecondStep() {
   // }
 
   const css = `
-  // .my-selected:not([disabled]) { 
-  //   font-weight: bold; 
-  //   border: 2px solid currentColor;
-  // }
-  // .my-selected:hover:not([disabled]) { 
-  //   border-color: blue;
-  //   color: blue;
-  // }
+  .my-selected:not([disabled]) { 
+    font-weight: bold; 
+    border: 2px solid #CDCDCD;
+    backGroundColor: '#CDCDCD'
+  }
+  .my-selected:hover:not([disabled]) { 
+    border-color: gray;
+    color: lightGray;
+  }
   .my-today { 
-    font-family: 'Arial, Helvetica, sans-serif',
     font-weight: bold;
     font-size: 140%; 
     color: red;
@@ -139,14 +139,20 @@ export default function SecondStep() {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
 
           <Box sx={{ margin: '20px' }}>
-            {/* <style>{css}</style> */}
-
+            <style>{css}</style>
             <DayPicker
               mode="range"
               defaultMonth={pastMonth}
               selected={range}
               footer={footer}
               onSelect={setRange}
+              modifiersClassNames={{
+                selected: 'my-selected',
+                today: 'my-today'
+              }}
+              modifiersStyles={{
+                disabled: { fontSize: '75%' }
+              }}
               // modifiersClassNames={{
               //   selected: 'my-selected',
               //   today: 'my-today'

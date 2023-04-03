@@ -24,6 +24,105 @@ import Checkbox from "@mui/material/Checkbox";
 
 import { DataGrid } from "@mui/x-data-grid";
 
+import PropTypes from 'prop-types';
+import { useTheme } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableFooter from '@mui/material/TableFooter';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import LastPageIcon from '@mui/icons-material/LastPage';
+
+
+function TablePaginationActions(props) {
+  const theme = useTheme();
+  const { count, page, rowsPerPage, onPageChange } = props;
+
+  const handleFirstPageButtonClick = (event) => {
+    onPageChange(event, 0);
+  };
+
+  const handleBackButtonClick = (event) => {
+    onPageChange(event, page - 1);
+  };
+
+  const handleNextButtonClick = (event) => {
+    onPageChange(event, page + 1);
+  };
+
+  const handleLastPageButtonClick = (event) => {
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+  };
+
+  return (
+    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+      <IconButton
+        onClick={handleFirstPageButtonClick}
+        disabled={page === 0}
+        aria-label="first page"
+      >
+        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+      </IconButton>
+      <IconButton
+        onClick={handleBackButtonClick}
+        disabled={page === 0}
+        aria-label="previous page"
+      >
+        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+      </IconButton>
+      <IconButton
+        onClick={handleNextButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="next page"
+      >
+        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+      </IconButton>
+      <IconButton
+        onClick={handleLastPageButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="last page"
+      >
+        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+      </IconButton>
+    </Box>
+  );
+}
+
+TablePaginationActions.propTypes = {
+  count: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+};
+
+function createData(firstName, lastName, branch, department, phone) {
+  return { firstName, lastName, branch, department, phone };
+}
+
+const rows = [
+  createData('Adam', 'Smith', 'Branch 1', 'Department 1', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 2', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 3', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 4', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 4', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 4', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 4', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 4', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 4', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 4', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 4', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 4', "093 000 000"),
+  createData('Adam', 'Smith', 'Branch 1', 'Department 4', "093 000 000"),
+
+]
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -62,49 +161,35 @@ const variants = [
   },
 ];
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
-];
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
 
 export default function ThirdStep() {
+  
   const [open, setOpen] = useState(true);
   const [openTwo, setOpenTwo] = useState(true);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+
+  const emptyRows =
+  page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+const handleChangePage = (event, newPage) => {
+  setPage(newPage);
+};
+
+const handleChangeRowsPerPage = (event) => {
+  setRowsPerPage(parseInt(event.target.value, 10));
+  setPage(0);
+};
+
 
   const handleClick = () => {
     setOpen(!open);
   };
 
   const handleClickTwo = () => {
-    setOpen(!open);
+    setOpenTwo(!openTwo);
   };
 
   const [variantName, setVariantName] = useState([
@@ -164,16 +249,16 @@ export default function ThirdStep() {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
-                <Box width="250px" sx={{ height: '250px', overflowY: 'scroll' }}>
-              <MenuItem><Checkbox />Department 1</MenuItem>
-              <MenuItem><Checkbox />Department 2</MenuItem>
-              <MenuItem><Checkbox />Department 3</MenuItem>
-              <MenuItem><Checkbox />Department 4</MenuItem>
-              <MenuItem><Checkbox />Department 5</MenuItem>
-              <MenuItem><Checkbox />Department 6</MenuItem>
-              <MenuItem><Checkbox />Department 7</MenuItem>
-              <MenuItem><Checkbox />Department 8</MenuItem>             
-            </Box>
+                  <Box width="250px" sx={{ height: '250px', overflowY: 'scroll' }}>
+                    <MenuItem><Checkbox />Department 1</MenuItem>
+                    <MenuItem><Checkbox />Department 2</MenuItem>
+                    <MenuItem><Checkbox />Department 3</MenuItem>
+                    <MenuItem><Checkbox />Department 4</MenuItem>
+                    <MenuItem><Checkbox />Department 5</MenuItem>
+                    <MenuItem><Checkbox />Department 6</MenuItem>
+                    <MenuItem><Checkbox />Department 7</MenuItem>
+                    <MenuItem><Checkbox />Department 8</MenuItem>
+                  </Box>
                 </ListItemButton>
               </List>
             </Collapse>
@@ -186,49 +271,89 @@ export default function ThirdStep() {
             <ListItemButton onClick={handleClickTwo}>
               <ListItemIcon><Checkbox /></ListItemIcon>
               <ListItemText primary="Branch 2" />
-              {open ? <ExpandLess /> : <ExpandMore />}
+              {openTwo ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openTwo} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
-                <Box width="250px" sx={{ height: '250px', overflowY: 'scroll' }}>
-              <MenuItem><Checkbox />Department 1</MenuItem>
-              <MenuItem><Checkbox />Department 2</MenuItem>
-              <MenuItem><Checkbox />Department 3</MenuItem>
-              <MenuItem><Checkbox />Department 4</MenuItem>
-              <MenuItem><Checkbox />Department 5</MenuItem>
-              <MenuItem><Checkbox />Department 6</MenuItem>
-              <MenuItem><Checkbox />Department 7</MenuItem>
-              <MenuItem><Checkbox />Department 8</MenuItem>             
-            </Box>
+                  <Box width="250px" sx={{ height: '250px', overflowY: 'scroll' }}>
+                    <MenuItem><Checkbox />Department 1</MenuItem>
+                    <MenuItem><Checkbox />Department 2</MenuItem>
+                    <MenuItem><Checkbox />Department 3</MenuItem>
+                    <MenuItem><Checkbox />Department 4</MenuItem>
+                    <MenuItem><Checkbox />Department 5</MenuItem>
+                    <MenuItem><Checkbox />Department 6</MenuItem>
+                    <MenuItem><Checkbox />Department 7</MenuItem>
+                    <MenuItem><Checkbox />Department 8</MenuItem>
+                  </Box>
                 </ListItemButton>
               </List>
             </Collapse>
           </List>
         </Box>
         <Box>
-        <div style={{ height: 575, width: '100%', textAlign: 'left'}}>
-          <Typography>Total 8</Typography>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
-    </div>
+          <div style={{ height: 575, width: 773, textAlign: 'left' }}>
+            <Typography>Total 8</Typography>
+            <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 773, height: 575 }} aria-label="custom pagination table">
+        <TableBody>
+          {(rowsPerPage > 0
+            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : rows
+          ).map((row) => (
+            <TableRow key={row.firstName}>
+              <TableCell component="th" scope="row">
+                <Checkbox/>
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.firstName}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                {row.lastName}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                {row.branch}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                {row.department}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                {row.phone}
+              </TableCell>
+            </TableRow>
+          ))}
+
+          {emptyRows > 0 && (
+            <TableRow style={{ height: 53 * emptyRows }}>
+              <TableCell colSpan={6} />
+            </TableRow>
+          )}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+              colSpan={3}
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              SelectProps={{
+                inputProps: {
+                  'aria-label': 'rows per page',
+                },
+                native: true,
+              }}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              ActionsComponent={TablePaginationActions}
+            />
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </TableContainer>
+          </div>
         </Box>
       </Box>
-
-      {/* <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
-    </div> */}
-    </Box>
+   </Box>
   );
 }

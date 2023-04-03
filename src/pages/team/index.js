@@ -135,6 +135,8 @@ export default function Team(
 
   const [openAdd, setOpenAdd] = React.useState(false);
 
+  
+
   const handleClickOpenAdd = () => {
     setOpenAdd(true);
   };
@@ -151,9 +153,10 @@ export default function Team(
     phoneCodeId: 0,
     phoneNumber: "",
     email: "",
-    departmentId: 0,
+    department: 0,
     positionId: 0,
     birthDate: "",
+    branchId: 0
   });
 
   React.useEffect(() => {
@@ -163,6 +166,8 @@ export default function Team(
       branchId,
       departmentId,
       positionId,
+      page: 0,
+      pageCount: 0
     };
 
     axios
@@ -177,35 +182,47 @@ export default function Team(
       .catch((error) => {
         console.log(error, "erroorr");
       });
-  }, [searchText, branchId, departmentId]);
+  }, [searchText, branchId, departmentId, positionId]);
 
   React.useEffect(() => {
-    axios
-      .get(
-        "http://ec2-18-119-107-103.us-east-2.compute.amazonaws.com/api/Company/Branches/1"
-      )
-      .then((res) => {
-        setFilter(res.data);
-      });
-  }, []);
+    //   axios
+    //     .get(
+    //       "http://ec2-18-119-107-103.us-east-2.compute.amazonaws.com/api/Company/Branches/1"
+    //     )
+    //     .then((res) => {
+    //       setFilter(res.data);
+    //     });
+    // }, []);
 
-  React.useEffect(() => {
-    axios
-      .get(
-        "http://ec2-18-119-107-103.us-east-2.compute.amazonaws.com/api/Company/Departments/1"
-      )
-      .then((res) => {
-        setFilterDep(res.data);
-      });
-  }, []);
+    // React.useEffect(() => {
+    //   axios
+    //     .get(
+    //       "http://ec2-18-119-107-103.us-east-2.compute.amazonaws.com/api/Company/Departments/1"
+    //     )
+    //     .then((res) => {
+    //       setFilterDep(res.data);
+    //     });
+    // }, []);
 
-  React.useEffect(() => {
+    // React.useEffect(() => {
+    //   axios
+    //     .get(
+    //       "http://ec2-18-119-107-103.us-east-2.compute.amazonaws.com/api/Company/Positions/1"
+    //     )
+    //     .then((res) => {
+    //       setFilterPos(res.data);
+    //     });
+
     axios
       .get(
-        "http://ec2-18-119-107-103.us-east-2.compute.amazonaws.com/api/Company/Positions/1"
+        "http://ec2-18-119-107-103.us-east-2.compute.amazonaws.com/api/Company/UsersFilterData/1"
       )
       .then((res) => {
-        setFilterPos(res.data);
+        setFilter(res.data.branches);
+        setFilterDep(res.data.departments);
+        setFilterPos(res.data.positions);
+
+
       });
   }, []);
 
@@ -233,8 +250,8 @@ export default function Team(
       phoneNumber: postData.phoneNumber,
       email: postData.email,
       departmentId: postData.departmentId,
-      positionId: 1,
-      // birthDate: 'postData.birthDate',
+      position: postData.position,
+      branchId: postData.branchId,
       birthDate: "2011-03-29T12:53:32.006Z",
     };
     axios
@@ -250,6 +267,8 @@ export default function Team(
       .catch((error) => {
         console.log(error, "erroorr");
       });
+    setOpenAdd(false);
+
   };
 
   const handleChange = (event) => {
@@ -350,7 +369,7 @@ export default function Team(
               <BootstrapDialogTitle
                 id="customized-dialog-title"
                 onClose={handleCloseAdd}
-                sx={{marginLeft: '30px'}}
+                sx={{ marginLeft: '30px' }}
               >
                 Add Members
               </BootstrapDialogTitle>
@@ -362,175 +381,178 @@ export default function Team(
                 </Typography> */}
 
                 {/* <AddUser/> */}
-                <FormControl sx={{paddingLeft: '34px'}}>
-                  <div  style={{
+                <FormControl sx={{ paddingLeft: '34px' }}>
+                  <div style={{
                     // display: 'flex',
-                     justifyContent: 'space-around', flexWrap: 'wrap'}}>
-                  <TextField
-                    id="outlined-basic"
-                    label="First name"
-                    variant="outlined"
-                    onChange={(event) => {
-                      setPostData({
-                        ...postData,
-                        firstName: event.target.value,
-                      });
-                    }}
-                    value={postData.firstName}
-                    sx={{
-                      width: "315px",
-                      height: "56px",
-                      marginRight: '168px', 
-                      marginBottom: '48px'
-                    }}
-                  />
+                    justifyContent: 'space-around', flexWrap: 'wrap'
+                  }}>
+                    <TextField
+                      id="outlined-basic"
+                      label="First name"
+                      variant="outlined"
+                      onChange={(event) => {
+                        setPostData({
+                          ...postData,
+                          firstName: event.target.value,
+                        });
+                      }}
+                      value={postData.firstName}
+                      sx={{
+                        width: "315px",
+                        height: "56px",
+                        marginRight: '168px',
+                        marginBottom: '48px'
+                      }}
+                    />
                     <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={branchId}
-                    label="Branch"
-                    onChange={(e) => {
-                      // setBranchId(e.target.value);
-                      console.log(e.target.value, "select e.t.v");
-                    }}
-                    sx={{
-                      width: '363px',
-                      height: '56px',
-                      marginBottom: '48px'
-                    }}
-                  >
-                    {filter.map((item) => (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <TextField
-                    id="outlined-basic"
-                    label="Last name"
-                    variant="outlined"
-                    onChange={(event) => {
-                      setPostData({
-                        ...postData,
-                        lastName: event.target.value,
-                      });
-                    }}
-                    value={postData.lastName}
-                    sx={{
-                      width: '315px',
-                      height: '56px', 
-                      marginRight: '168px',
-                      marginBottom: '48px'
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={postData.branchId}
+                      label="Branch"
+                      onChange={(event) => {
+                        setPostData({
+                          ...postData,
+                          branchId: event.target.value,
+                        });
+                      }}
+                      sx={{
+                        width: '363px',
+                        height: '56px',
+                        marginBottom: '48px'
+                      }}
+                    >
+                      {filter.map((item) => (
+                        <MenuItem key={item.id} value={item.id}>
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <TextField
+                      id="outlined-basic"
+                      label="Last name"
+                      variant="outlined"
+                      onChange={(event) => {
+                        setPostData({
+                          ...postData,
+                          lastName: event.target.value,
+                        });
+                      }}
+                      value={postData.lastName}
+                      sx={{
+                        width: '315px',
+                        height: '56px',
+                        marginRight: '168px',
+                        marginBottom: '48px'
 
-                    }}
-                    
-                  />
-                
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={departmentId}
-                    sx={{
-                      width: '363px',
-                      height: '56px',
-                      marginBottom: '48px'
-                    }}
-                    label="DepartmentId"
-                    onChange={(event) => {
-                      setPostData({
-                        ...postData,
-                        departmentId: event.target.value,
-                      });
-                      console.log(event.target.value, "event.target.value");
-                    }}
+                      }}
+
+                    />
+
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={postData.departmentId}
+                      sx={{
+                        width: '363px',
+                        height: '56px',
+                        marginBottom: '48px'
+                      }}
+                      label="DepartmentId"
+                      onChange={(event) => {
+                        setPostData({
+                          ...postData,
+                          departmentId: event.target.value,
+                        });
+                        console.log(event.target.value, "event.target.value");
+                      }}
                     // onChange={(e) => {
                     //   setDepartmentId(e.target.value);
                     //   console.log(departmentId, "depid");
                     // }}
-                  >
-                    {filterDep.map((item) => (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <TextField
-                    id="outlined-basic"
-                    label="Phone"
-                    variant="outlined"
-                    onChange={(event) => {
-                      setPostData({
-                        ...postData,
-                        phoneNumber: event.target.value,
-                      });
-                    }}
-                    value={postData.phoneNumber}
-                    sx={{
-                      width: '315px',
-                      height: '56px',
-                      marginBottom: '48px',
-                      marginRight: '168px'
-                    }}
-                  />
-                  <TextField
-                    id="outlined-basic"
-                    label="Position"
-                    variant="outlined"
-                    onChange={(event) => {
-                      setPostData({
-                        ...postData,
-                        position: event.target.value,
-                      });
-                    }}
-                    value={postData.position}
-                    sx={{
-                      width: '363px',
-                      height: '56px',
-                      marginBottom: '48px'
-                    }}
-                  />
-                  <TextField
-                    id="outlined-basic"
-                    label="Mail"
-                    variant="outlined"
-                    onChange={(event) => {
-                      setPostData({ ...postData, email: event.target.value });
-                    }}
-                    value={postData.email}
-                    sx={{
-                      width: '315px',
-                      height: '56px',
-                      marginBottom: '48px',
-                      marginRight: '168px',
-                    }}
-                  />
+                    >
+                      {filterDep.map((item) => (
+                        <MenuItem key={item.id} value={item.id}>
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <TextField
+                      id="outlined-basic"
+                      label="Phone"
+                      variant="outlined"
+                      onChange={(event) => {
+                        setPostData({
+                          ...postData,
+                          phoneNumber: event.target.value,
+                        });
+                      }}
+                      value={postData.phoneNumber}
+                      sx={{
+                        width: '315px',
+                        height: '56px',
+                        marginBottom: '48px',
+                        marginRight: '168px'
+                      }}
+                    />
+                    <TextField
+                      id="outlined-basic"
+                      label="Position"
+                      variant="outlined"
+                      onChange={(event) => {
+                        setPostData({
+                          ...postData,
+                          position: event.target.value,
+                        });
+                      }}
+                      value={postData.position}
+                      sx={{
+                        width: '363px',
+                        height: '56px',
+                        marginBottom: '48px'
+                      }}
+                    />
+                    <TextField
+                      id="outlined-basic"
+                      label="Mail"
+                      variant="outlined"
+                      onChange={(event) => {
+                        setPostData({ ...postData, email: event.target.value });
+                      }}
+                      value={postData.email}
+                      sx={{
+                        width: '315px',
+                        height: '56px',
+                        marginBottom: '48px',
+                        marginRight: '168px',
+                      }}
+                    />
 
-                  <TextField
-                    id="outlined-basic"
-                    label="Date"
-                    variant="outlined"
-                    onChange={(event) => {
-                      setPostData({
-                        ...postData,
-                        birthDate: event.target.value,
-                      });
-                    }}
-                    value={postData.birthDate}
-                    sx={{
-                      width: '363px',
-                      height: '56px',
-                      marginBottom: '48px'
-                    }}
-                  />
+                    <TextField
+                      id="outlined-basic"
+                      label="Date"
+                      variant="outlined"
+                      onChange={(event) => {
+                        setPostData({
+                          ...postData,
+                          birthDate: event.target.value,
+                        });
+                      }}
+                      value={postData.birthDate}
+                      sx={{
+                        width: '363px',
+                        height: '56px',
+                        marginBottom: '48px'
+                      }}
+                    />
 
                   </div>
-                 
+
                 </FormControl>
                 {/* <AddUser/> */}
               </DialogContent>
               <DialogActions>
-                <Button autoFocus onClick={handleCloseAdd}>
-                  Save changes
+                <Button autoFocus onClick={addUser}>
+                Create
                 </Button>
               </DialogActions>
             </BootstrapDialog>
@@ -630,6 +652,7 @@ export default function Team(
                       label="Position"
                       onChange={(e) => {
                         setPositionId(e.target.value);
+                        console.log(e.target.value, 'position');
                       }}
                     >
                       {filterPos.map((item) => (
